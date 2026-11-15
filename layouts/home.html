@@ -1,12 +1,47 @@
-{{ define "header" }}
-  <header>
-    <div class="{{ .Site.Params.background_color_class | compare.Default "bg-black" }}">
-      {{ partials.Include "site-navigation.html" . }}
-    </div>
-  </header>
-{{ end }}
-
 {{ define "main" }}
+  <style>
+    body.is-home {
+      background: linear-gradient(rgba(15, 17, 23, 0.82), rgba(15, 17, 23, 0.82)),
+                  url('/images/background.jpg') no-repeat center center fixed !important;
+      background-size: cover !important;
+      color: #f3f4f6;
+    }
+    body.is-home article {
+      color: #f3f4f6;
+    }
+    body.is-home .mid-gray,
+    body.is-home .dark-gray {
+      color: #e5e7eb !important;
+    }
+    body.is-home h1,
+    body.is-home h2,
+    body.is-home h3 {
+      color: #ffffff !important;
+    }
+    body.is-home .bb.b--black-10 {
+      border-bottom-color: rgba(255, 255, 255, 0.15) !important;
+    }
+    body.is-home a.dim,
+    body.is-home a.color-inherit {
+      color: #ffffff !important;
+    }
+    body.is-home a.dim:hover {
+      color: #38bdf8 !important;
+    }
+    body.is-home .gray,
+    body.is-home time {
+      color: #9ca3af !important;
+    }
+    body.is-home .bg-light-gray {
+      background-color: rgba(255, 255, 255, 0.12) !important;
+      border-color: rgba(255, 255, 255, 0.25) !important;
+      color: #ffffff !important;
+      transition: background-color 0.2s ease;
+    }
+    body.is-home .bg-light-gray:hover {
+      background-color: rgba(255, 255, 255, 0.25) !important;
+    }
+  </style>
 
   {{- $config := site.Params.ananke.home -}}
   {{- $text_alignment := "tc-l" -}}
@@ -42,7 +77,7 @@
       {{ if compare.Ge $section_count (math.Add $n_posts 1) }}
         <section class="w-100">
           <h1 class="f3">{{ lang.Translate "more" }}</h1>
-          {{/* Now, range through the next four after the initial $n_posts items. Nest the requirements, "after" then "first" on the outside */}}
+          {{/* Now, range through the next four after the initial $n_posts items. Nest the requirements, "after" then "first" on the outside */}}  
           {{ range (collections.First 4 (collections.After $n_posts $section))  }}
             <h2 class="f5 fw4 mb4 dib {{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "ml3" "mr3" }}">
               <a href="{{ .RelPermalink }}" class="link black dim">

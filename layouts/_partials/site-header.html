@@ -1,23 +1,30 @@
 {{ $featured_image := partials.Include "func/GetFeaturedImage.html" . }}
 {{ if $featured_image }}
   {{/* Trimming the slash and adding absURL make sure the image works no matter where our site lives */}}
-  {{ $featured_image_class := site.Params.featured_image_class | compare.Default "cover bg-top" }}
-  {{ $header_section_class := .Param "header_section_class" | compare.Default "tc-l pv4 pv6-l ph3 ph4-ns" }}
+  {{ $featured_image_class := site.Params.featured_image_class | compare.Default "cover bg-center" }}
   <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image }}');">
     {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}
-    <div class="{{ $cover_dimming_class }}">
-      {{ partials.Include "site-navigation.html" .}}
+    <div class="{{ $cover_dimming_class }} {{ if .IsHome }}pb5 pb6-l{{ end }}">
+      {{ partials.Include "site-navigation.html" . }}
       {{ if not .IsHome }}
-      <div class="{{ $header_section_class }}">
-        <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
-          {{ .Title | compare.Default .Site.Title }}
+      <div class="mw8 center ph3 ph4-ns pt4 pb3">
+        <h1 class="f2 f1-ns fw5 white-90 lh-title mb2 sans-serif" style="font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; letter-spacing: -0.025em;">
+          {{ .Title }}
         </h1>
         {{ with .Params.description }}
-          <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
+          <p class="f5 f4-ns white-80 mt2 mb0 lh-copy">
             {{ . }}
-          </h2>
+          </p>
         {{ end }}
       </div>
+      {{ else }}
+        {{ with .Params.description }}
+        <div class="mw8 center ph3 ph4-ns tc pt4 pt5-l pb3">
+          <p class="f4 f3-l fw3 white-90 measure center lh-copy sans-serif" style="font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+            {{ . }}
+          </p>
+        </div>
+        {{ end }}
       {{ end }}
     </div>
   </header>
