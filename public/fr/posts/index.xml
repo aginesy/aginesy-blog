@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Articles on Alexandre GINESY</title>
-		<link>http://localhost:1313/fr/posts/</link>
+		<link>https://aginesy.github.io/fr/posts/</link>
 		<description>Recent content in Articles on Alexandre GINESY</description>
 		<generator>Hugo</generator>
 		<language>fr</language>
@@ -10,6 +10,6 @@
 		
 		
 		
-			<atom:link href="http://localhost:1313/fr/posts/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="https://aginesy.github.io/fr/posts/index.xml" rel="self" type="application/rss+xml" />
 	</channel>
 </rss>
