@@ -1,4 +1,4 @@
-baseURL = 'https://aginesy.com/'
+baseURL = 'https://aginesy.github.io/'
 locale = 'en'
 title = 'Alexandre GINESY'
 theme = 'ananke'
