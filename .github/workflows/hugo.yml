@@ -1,0 +1,61 @@
+name: Déployer la documentation Hugo
+on:
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    env:
+      HUGO_VERSION: '0.164.0'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          submodules: recursive
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Installer Hugo
+        run: |
+          base="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}"
+          curl -fsSLO "${base}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+          curl -fsSLO "${base}/hugo_${HUGO_VERSION}_checksums.txt"
+          sha256sum --check --ignore-missing "hugo_${HUGO_VERSION}_checksums.txt"
+          tar xzf "hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz" hugo
+          sudo install -o root -g root -m 0755 hugo /usr/local/bin/hugo
+
+      - name: Configurer GitHub Pages
+        id: pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+
+      - name: Build
+        env:
+          BASE_URL: ${{ steps.pages.outputs.base_url }}
+        run: hugo --gc --minify --baseURL "${BASE_URL}/"
+
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+        with:
+          path: ./public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
