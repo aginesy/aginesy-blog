@@ -1,13 +1,57 @@
 baseURL = 'https://aginesy.com/'
-locale = 'fr'
+locale = 'en'
 title = 'Alexandre GINESY'
 theme = 'ananke'
 
-sectionPagesMenu = 'main'
+defaultContentLanguage = 'en'
 
-defaultContentLanguage = 'fr'
-[languages]
-  [languages.fr]
-    weight = 1
-  [languages.en]
-    weight = 2
+[languages.en]
+   weight = 1
+	[[languages.en.menu.main]]
+		 name = "Posts"
+		 pageRef = "/posts"
+		 weight = 10
+	[[languages.en.menu.main]]
+		name = "Notes"
+		pageRef = "/notes"
+		weight = 20
+	[[languages.en.menu.main]]
+		name = "Tags"
+		pageRef = "/tags"
+		weight = 30
+	[[languages.en.menu.main]]
+		 name = "About"
+		 pageRef = "/about"
+		 weight = 40
+	   
+
+[languages.fr]
+   weight = 2
+	[[languages.fr.menu.main]]
+		 name = "Articles"
+		 pageRef = "/posts"
+		 weight = 10
+	[[languages.fr.menu.main]]
+		name = "Notes"
+		pageRef = "/notes"
+		weight = 20
+	[[languages.fr.menu.main]]
+		name = "Tags"
+		pageRef = "/tags"
+		weight = 30
+	[[languages.fr.menu.main]]
+		 name = "À propos"
+		 pageRef = "/about"
+		 weight = 40
+       
+[params.ananke.social.follow]
+networks = [
+  "github",
+  "linkedin"
+]
+
+[params.ananke.social.github]
+username = "aginesy"
+
+[params.ananke.social.linkedin]
+profilelink = "https://www.linkedin.com/in/alexandre-ginesy/"

@@ -1,0 +1,62 @@
+<style>
+  .site-brand {
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 1.125rem;
+    letter-spacing: -0.015em;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+  .site-brand .brand-first {
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.85);
+    margin-right: 0.32em;
+    transition: color 0.2s ease;
+  }
+  .site-brand .brand-last {
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+  }
+  .site-brand .brand-dot {
+    color: #38bdf8;
+    font-weight: 700;
+    margin-left: 2px;
+    display: inline-block;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease;
+  }
+  .site-brand:hover .brand-first {
+    color: #ffffff;
+  }
+  .site-brand:hover .brand-dot {
+    transform: scale(1.35);
+    color: #60a5fa;
+  }
+</style>
+<nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="{{ .Site.Home.RelPermalink }}" class="site-brand dib no-underline" title="{{ .Site.Title }}">
+      {{ with .Site.Params.site_logo }}
+        <img src="{{ urls.RelURL . }}" class="w100 mw5-ns" alt="{{ $.Site.Title }}" />
+      {{ else }}
+        <span class="brand-first">Alexandre</span><span class="brand-last">Ginesy</span><span class="brand-dot">.</span>
+      {{ end }}
+    </a>
+    <div class="flex-l items-center">
+      {{ partials.Include "i18nlist.html" . }}
+      {{ if .Site.Menus.main }}
+        <ul class="{{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "pr0 ml3" "pl0 mr3" }}">
+          {{ range .Site.Menus.main }}
+          <li class="list f5 f4-ns fw4 dib {{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "pl3" "pr3" }}">
+            <a class="hover-white white-90 no-underline" href="{{ .URL }}" title="{{ lang.Translate "pageTitle" . }}">
+              {{ .Name }}
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+      {{ end }}
+      {{ partials.IncludeCached "social/follow.html" . }}
+    </div>
+  </div>
+</nav>
